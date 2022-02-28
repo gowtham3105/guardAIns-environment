@@ -1,5 +1,6 @@
 import json
 import random
+import sys
 import threading
 import time
 from datetime import datetime
@@ -41,7 +42,7 @@ def create_socket():
 
 
 # Press the green button in the gutter to run the script.
-def main():
+def main(IP, PORT):
     sio, app = create_socket()
 
     ROOM_ID = 'gameRoom'
@@ -186,9 +187,12 @@ def main():
         print('connect error ', sid)
 
     # start the server
-
-    eventlet.wsgi.server(eventlet.listen(('', 9000)), app)
+    print(IP, PORT)
+    # close app
+    eventlet.wsgi.server(eventlet.listen((str(IP), int(PORT)), reuse_port=True), app)
 
 
 if __name__ == '__main__':
-    main()
+    IP = sys.argv[1] if len(sys.argv) > 1 else 'localhost'
+    PORT = sys.argv[2] if len(sys.argv) > 2 else '8000'
+    main(IP, PORT)

@@ -374,6 +374,10 @@ class Environment:
                 self.__game_over = True
                 print("Player 1 is the Winner")
                 sio.emit('game_status', 'Player 1 is the Winner')
+                # close the server
+                sio.close()
+                print("Server Closed")
+
                 return True
 
         while True:
@@ -386,6 +390,7 @@ class Environment:
                     print("Player 1 is the Winner, because of Infinity Stone reached to base",
                           self.__infinity_stone.get_coordinates())
                     sio.emit('game_status', 'Player 1 is the Winner')
+
                     return True
                 if self.__infinity_stone.get_coordinates() == self.get_player2().get_base_coordinates():
                     self.__winner = self.get_player2()
@@ -420,7 +425,6 @@ class Environment:
                     self.__game_over = True
                     print("Player 2 is the Winner")
                     sio.emit('game_status', 'Player 2 is the Winner')
-
                     return True
                 else:
                     self.__winner = None
@@ -446,7 +450,6 @@ class Environment:
 
                 print("Game Over")
                 sio.emit('game_status', 'Game Over')
-                exit(0)
                 return True
 
             player1_state = State(self.movegen(self.get_player1()), self.__player1_feedback,
