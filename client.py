@@ -2,6 +2,7 @@ import json
 import sys
 
 import socketio
+import random
 
 if len(sys.argv) != 2:
     print("Usage: python3 temp_client.py <player_id>")
@@ -76,33 +77,25 @@ def bfs(state):
 
 @sio.event
 def action(state):
-    fi = open('state.json', 'w')
-    fi.write(json.dumps(state))
-    fi.close()
-    # cells = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    # cell = random.choice(cells)
-    # guardians = ["Gamora", "Drax", "Rocket", "Groot", "StarLord"]
-    # guardian = random.choice(guardians)
-    # coordinates = state['movegen'][guardian]['current_cell']['coordinates']
-    # coordinates = coordinates.strip('(').strip(')').split(', ')
-    #
-    # new_cell = (int(coordinates[0]) + int(cell[0]), int(coordinates[1]) + cell[1])
-    #
-    # action_type = ['MOVE', 'ATTACK']
-    # action_selected = random.choice(action_type)
-    #
-    # print(action_selected, guardian, new_cell)
 
-    cell = bfs(state)
-    if not cell:
-        print("No more moves")
-        return None
-    # print("State: ",state)
+    cells = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    cell = random.choice(cells)
+    guardians = ["Gamora", "Drax", "Rocket", "Groot", "StarLord"]
+    guardian = random.choice(guardians)
+    coordinates = state['movegen'][guardian]['current_cell']['coordinates']
+    coordinates = coordinates.strip('(').strip(')').split(', ')
+
+    new_cell = (int(coordinates[0]) + int(cell[0]), int(coordinates[1]) + cell[1])
+
+    action_type = ['MOVE', 'ATTACK']
+    action_selected = random.choice(action_type)
+
+    print(action_selected, guardian, new_cell)
 
     action = {
-        "action_type": 'MOVE',
-        "troop": 'Gamora',
-        'target': cell,
+        "action_type": action_selected,
+        "guardian": guardian,
+        "target": new_cell,
         'player_id': PLAYER_ID,
         'round_no': state['round_no']
     }
