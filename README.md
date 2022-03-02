@@ -7,6 +7,7 @@
 1. Download the Repository to your local machine <br>
 2. Setup the server by running [setup.sh](./setup.sh) folder with this command below <br>
    `bash setup.sh`
+3. Source the created venv by running `source venv/bin/activate`. Note this must be done everytime a new terminal is opened <br>
 
 ### Running the Server
 
