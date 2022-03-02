@@ -1,10 +1,10 @@
 sudo apt update
 
-if [ -z "$(which python)" ]; then
-    sudo apt install python
+if [ -z "$(which python3)" ]; then
+    sudo apt install python3
 fi
 
-python --version
+python3 --version
 echo "python installed"
 
 if ! [ -x "$(command -v pip)" ]; then
@@ -18,7 +18,7 @@ else
 fi
 
 
-python -m venv venv
+python3 -m venv venv
 echo "Virtual environment created"
 source venv/bin/activate
 pip install -r requirements.txt
