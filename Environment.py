@@ -374,10 +374,6 @@ class Environment:
                 self.__game_over = True
                 print("Player 1 is the Winner")
                 sio.emit('game_status', 'Player 1 is the Winner')
-                # close the server
-                sio.close()
-                print("Server Closed")
-
                 return True
 
         while True:
