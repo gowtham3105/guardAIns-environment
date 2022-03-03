@@ -48,10 +48,15 @@ def action(state):
 
     action = {
         "action_type": action_selected,
-        "guardian": guardian,
+        "troop": guardian,
         "target": str(new_cell),
         'player_id': PLAYER_ID,
         'round_no': state['round_no']
+    }
+    action = {
+        'action_type': 'SPECIAL',
+        'guardian': 'Gamora',
+        
     }
     print("Sending action:", action)
     sio.emit('action', action)
