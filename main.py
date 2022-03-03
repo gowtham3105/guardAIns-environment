@@ -56,7 +56,7 @@ def main(IP, PORT):
     start_time = datetime.strptime(rooms[ROOM_ID]['start_time'], '%b %d %Y %I:%M%p %z')
     start_time = start_time.timestamp()
     start_time = time.time() + 10
-    env = Environment(ROOM_ID, start_time, 5, 5, 300, 1, 300)
+    env = Environment(ROOM_ID, start_time, 50, 50, 300, 1, 300)
     env.create_graph()
 
     env.print_graph()

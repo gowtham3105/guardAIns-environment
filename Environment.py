@@ -660,17 +660,16 @@ class Environment:
             guardian = self.__player2.get_guardian_by_type(action.get_guardian_type())
         else:
             guardian = None
-
         if guardian is not None:
             if guardian.is_alive():
                 if action.get_action_type() == "SPECIAL":
-                    if guardian.get_cooldown() < self.get_rounds():
+                    if guardian.get_cooldown() > self.get_rounds():
                         return False
                     # check for cool down first then this
                     if action.get_guardian_type() == "Gamora":
                         tg = action.get_target(self.get_graph()).get_coordinates()
                         cg = guardian.get_coordinates().get_coordinates()
-                        if ((tg[0] - cg[0]) ** 2 + (tg[1] + cg[1]) ** 2) <= 25:
+                        if ((tg[0] - cg[0]) ** 2 + (tg[1] - cg[1]) ** 2) <= 25:
                             return True
                         else:
                             print("target out of range SPECIAL jump")
@@ -717,7 +716,6 @@ class Environment:
             return False
 
     def execute_action(self, player1_action: Action, player2_action: Action, player1_error: bool, player2_error: bool):
-
         if not player1_error:
             if not self.validate_action(player1_action):
                 player1_error = True
@@ -728,7 +726,6 @@ class Environment:
                 player2_error = True
                 self.add_player2_feedback(Feedback("invalid_action"))
                 self.reduce_score(self.get_player2().get_player_id(), 'invalid_action')
-
         if not player1_error:
             if player1_action.get_action_type() == Action.ATTACK and player1_action.get_guardian_type() == "Rocket":
                 # PLAYER 1 ROCKET
@@ -814,7 +811,7 @@ class Environment:
                 # PLAYER 2 SPECIAL Gamora or Drax
                 if (player2_action.get_guardian_type() == "Gamora"):
                     tg = player2_action.get_target(self.get_graph())
-                    cg = self.__player2.get_guardian_by_type(player2_action.get_guardian_type).get_coordinates()
+                    cg = self.__player2.get_guardian_by_type(player2_action.get_guardian_type()).get_coordinates()
                     guardian = self.__player2.get_guardian_by_type(
                         player2_action.get_guardian_type())  # update it to return
                     # guardian object directly
@@ -828,9 +825,9 @@ class Environment:
                     #                                     "target_type": tg.get_type()}))
 
                 elif (player2_action.get_guardian_type() == "Drax"):
-                    tg = player1_action.get_target(self.get_graph())
-                    cg = self.__player2.get_guardian_by_type(player2_action.get_guardian_type).get_coordinates()
-                    guardian = self.__player1.get_guardian_by_type(
+                    tg = player2_action.get_target(self.get_graph())
+                    cg = self.__player2.get_guardian_by_type(player2_action.get_guardian_type()).get_coordinates()
+                    guardian = self.__player2.get_guardian_by_type(
                         player1_action.get_guardian_type())
                     tg.add_neighbour_cell(cg)
                     cg.add_neighbour_cell(tg)

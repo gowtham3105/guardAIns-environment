@@ -13,7 +13,7 @@ class Drax(Guardian):
         self.__attack_damage = 70
         self.__vision = 1
         self.__speed = 1
-        self.__cooldown = 3
+        self.__cooldown = 0
         super().__init__(belongs, init_coordinates, alive)
 
     def special_ability(self):
