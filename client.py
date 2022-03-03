@@ -53,11 +53,6 @@ def action(state):
         'player_id': PLAYER_ID,
         'round_no': state['round_no']
     }
-    action = {
-        'action_type': 'SPECIAL',
-        'guardian': 'Gamora',
-        
-    }
     print("Sending action:", action)
     sio.emit('action', action)
 
