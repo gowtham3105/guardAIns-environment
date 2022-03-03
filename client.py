@@ -5,7 +5,7 @@ import socketio
 import random
 
 if len(sys.argv) != 2:
-    print("Usage: python3 temp_client.py <player_id>")
+    print("Usage: python client.py <player_id>")
     exit(1)
 
 sio = socketio.Client()
@@ -49,7 +49,7 @@ def action(state):
     action = {
         "action_type": action_selected,
         "guardian": guardian,
-        "target": new_cell,
+        "target": str(new_cell),
         'player_id': PLAYER_ID,
         'round_no': state['round_no']
     }
