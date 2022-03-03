@@ -44,7 +44,7 @@ def action(state):
     action_type = ['MOVE', 'ATTACK']
     action_selected = random.choice(action_type)
 
-    print(action_selected, guardian, new_cell)
+    # print(action_selected, guardian, new_cell)
 
     action = {
         "action_type": action_selected,
